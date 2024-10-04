@@ -1,0 +1,83 @@
+#######################################################################################################################################
+# Teoría
+
+1. b) Especifica el mensaje del commit directamente desde la línea de comandos.
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+2. a) Como excepciones o casos avanzados que van más allá de las primeras tres formas normales.
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+3. En la Primera Forma Nomral se eliminan los grupos repetidos
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+4. La cláusula WHERE filtra filas antes de GROUP BY; la cláusula HAVING se aplica después de GROUP BY para filtrar los resultados agregados.
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+5.c) FROM -> WHERE -> SELECT -> ORDER BY
+
+######################################################################################################################################################################################
+
+# Práctica
+
+1.
+
+```SQL
+-- poner solución debajo de este mensaje
+
+SELECT AVG(edad) AS promedio_edad
+FROM alumnos
+WHERE apellido LIKE '%ez';
+
+promedio_edad = 20.4285714285714
+
+
+```
+
+2.
+SELECT
+    c.nombre_materia,
+    COUNT(*) AS num
+FROM
+    calificaciones c
+WHERE 
+    c.expediente IN (SELECT expediente FROM alumnos WHERE edad > 20)
+GROUP BY 
+    c.nombre_materia
+ORDER BY 
+    num DESC;
+	-- Utilicé un subquery, salu2
+
+
+Física	        3
+Química	        2
+Matemáticas	2
+Inglés	        2
+Literatura	1
+Historia	1
+Deportes	1
+Biología	1
+Arte	        1
+
+
+```
+
+3.
+
+```SQL
+-- poner solución debajo de este mensaje
+SELECT
+    a.nombre
+FROM
+    calificaciones c,
+    alumnos a
+WHERE
+    c.expediente = a.expediente
+    AND c.nombre_materia = 'Matemáticas'
+    AND c.calificacion IS NOT NULL
+ORDER BY
+    c.calificacion DESC
+LIMIT 1 OFFSET 1;
+
+Diego
+
+```
